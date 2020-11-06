@@ -12,6 +12,7 @@ The plan is to have a simple program that the user can interact in.
 ### Platform
 Console App
 ### Tools
-C++
-Linux
-Github
+* C++
+* Linux
+* Vim
+* Github
