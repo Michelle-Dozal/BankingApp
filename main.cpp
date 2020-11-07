@@ -57,7 +57,7 @@ case 4:
 break;
 
 case 5:
-system("cls);
+system("cls");
 displayUpdateAccount(acc,1,outFile);
 break;
 
