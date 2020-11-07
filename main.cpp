@@ -19,7 +19,9 @@ using namespace std;
 
 //Function Prototypes
 void intro();
-
+void menu();
+void loadRecords(vector<account>&, ifstream &);
+int getChoice();
 
 int main()
 {
@@ -180,5 +182,57 @@ cin.ignore(numeric_limits<int>::max(), '\n');
 cin >> choice;
 }
 	return choice;
+}
+
+void loadRecords(vector<account> &v, ifstream &f){
+
+account acc;
+int accNo;
+string name;
+char ch;
+double bal;
+
+f.open("records.txt");
+
+if(!f){
+system("cls");
+cout << "\n\n";
+    cout << setw(50) << "ERROR! Could not open file" << endl;
+    cout << setw(50) << "File Might Not Exist Or..." << endl;
+    cout << setw(50) << "Wrong File name is used....." << endl;
+    cout << setw(50) << "Exit Program for ERROR check" << endl;
+    cout << endl << endl << endl;
+    exit(0);
+    }
+else if(isEmptyFile(f)){
+system("cls");
+    cout << "\n\n\n";
+    cout << setw(50) << "There Are No Records on File" << endl;
+    cout << setw(50) << "Start loading records to File" << endl;
+    cout << setw(50) << " ";
+    system("pause");
+    return 0;
+}
+
+else{
+f.close();
+f.open("records.txt");
+
+}
+
+do{
+getline(f,str);
+if(!f.eof())
+      { tokenizer(str,accNo,name,ch,bal);
+        acc.setAccountNo(accNo);
+        acc.setName(name);
+        acc.setType(ch);
+        acc.setBalance(bal);
+        v.push_back(acc);
+       }
+
+    } while (!f.eof());}
+
+}
 }
 
