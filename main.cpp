@@ -21,6 +21,8 @@ using namespace std;
 void intro();
 void menu();
 void loadRecords(vector<account>&, ifstream &);
+
+
 int getChoice();
 
 int main()
@@ -235,4 +237,79 @@ if(!f.eof())
 
 }
 }
+void createNewAccount(vector<account> &v, ofstream &out){
+
+int accNo;
+string name;
+char ch;
+double bal;
+account acc;
+
+accountHolder(v, accNo, name, ch, bal, 0);
+
+reviewEntry(accNo, name, ch, bal);
+
+acc.setAccountNo(accNo);
+acc.setName(name);
+acc.setType(ch);
+acc.setBalance(bal);
+
+v.push_back(acc);
+writeToFile(v,out);
+
+cout << setw(13) << " " << "Account written to file" << endl << endl;
+system("pause");
+}
+
+void accountHolder(vector<account> &v, int &accNo, string &name, char &ch, double &bal, int flag){
+
+cout << "\n\n\n";
+
+if(flag == 0){
+	cout << setw(13) << " " << "Enter Account Number............: ";
+	cin >> accNo;
+	validateInt(accNo);
+
+	while(isAccount(v,accNo)){
+
+	cout << setw(13) << " " << "Account Number Is ALready In Use. Re-Enter.....: ";
+	cin >> accNo;
+	validateInt(accNo);
+	}
+}
+else if(flag == 1){
+	cin.clear();
+	cin.ignore(numeric_limits<int>::max(), '\n');
+}
+
+	cout << setw(13) << " " << "Account Name..........................: ";
+	 getline(cin, name);
+
+   	cout << setw(13) << " " << "Account Type..........................: ";
+    	cin >> ch;
+     	ch = toupper(ch);
+     	validateType(ch);
+
+   	cout << setw(13) << " " << "Account Balance.......................: ";
+    	cin >> bal;
+}
+
+void reviewEntry(int &accNo, string &name, char &ch, double &bal)
+{
+
+	cout << "\n\n\n";
+	cout << setw(13) << " " << "Account Number......................: "
+         << accNo << endl;
+    	cout << setw(13) << " " << "Account Name........................: "
+         << name << endl;
+    	cout << setw(13) << " " << "Account Type........................: "
+         << ch << endl;
+    	cout << setw(13) << " " << "Account Balance.....................: "
+         << bal << endl;
+}
+
+
+
+}
+
 
