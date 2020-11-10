@@ -308,7 +308,77 @@ void reviewEntry(int &accNo, string &name, char &ch, double &bal)
          << bal << endl;
 }
 
+void writeToFile(vector <account> &v, ofstream &out){
 
+out.open("records.txt");
+
+
+if(!out){
+system("cls");
+cout << "\n\n";
+    cout << setw(50) << "ERROR! Could not open file" << endl;
+    cout << setw(50) << "File Might Not Exist Or..." << endl;
+    cout << setw(50) << "Wrong File name is used....." << endl;
+    cout << setw(50) << "Exit Program for ERROR check" << endl;
+    cout << endl << endl << endl;
+    exit(0);
+        }
+for(size_t i = 0; i < v.size(); i++){
+	out << v[i].getAccountNo() << "/" << v[i].getName() << "/"
+	    << v[i].getType() << "/" << v[i].getBalance() << endl;
+}
+
+}
+
+void displayUpdateAccount(vector <account> &v, int flag, ofstream &out){
+
+system("cls");
+
+account acc;
+int accNo, index;
+string name;
+char ch;
+double bal;
+
+
+cout << "\n\n\n";
+cout << setw(13) << " " <<  "Enter an Account Number to display....: ";
+cin >> accNo;
+
+if(isAccount(v,accNo)){
+index = findIndex(v,accNo);
+}
+
+else{
+accountNotFound(accNo);
+return;
+}
+
+name = v[index].getName();
+ch = v[index].getType();
+bal = v[index].getBalance();
+
+
+if (flag == 0){
+            reviewEntry(accNo, name, ch, bal);
+            cout << endl << endl;
+            cout << setw(13) << " ";
+            system("pause");
+            return;
+        }
+else if(flag == 1){
+            reviewEntry(accNo, name, ch, bal);
+            accountHolder(v,accNo,name,ch,bal,1);
+
+            acc.setAccountNo(accNo);
+            acc.setName(name);
+            acc.setType(ch);
+            acc.setBalance(bal);
+
+            v[index] = acc;
+            writeToFile(v, out);
+            return;
+        }
 
 }
 
