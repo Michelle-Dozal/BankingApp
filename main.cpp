@@ -13,6 +13,7 @@
 #include <fstream>
 #include <limits>
 #include <regex>
+#include "account.h"
 
 using namespace std;
 
@@ -204,7 +205,7 @@ void loadRecords(vector<account> &v, ifstream &f){
 
 account acc;
 int accNo;
-string name;
+string name, str;
 char ch;
 double bal;
 
@@ -227,7 +228,7 @@ system("cls");
     cout << setw(50) << "Start loading records to File" << endl;
     cout << setw(50) << " ";
     system("pause");
-    return 0;
+    return ;
 }
 
 else{
@@ -247,9 +248,8 @@ if(!f.eof())
         v.push_back(acc);
        }
 
-    } while (!f.eof());}
+    } while (!f.eof());
 
-}
 }
 void createNewAccount(vector<account> &v, ofstream &out){
 
