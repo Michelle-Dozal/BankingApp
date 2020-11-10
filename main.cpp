@@ -21,7 +21,21 @@ using namespace std;
 void intro();
 void menu();
 void loadRecords(vector<account>&, ifstream &);
-
+void tokenizer(string,int&, string&, char&, double&);
+void listAllAccounts(const vector<account> &);
+void createNewAccount(vector<account> &, ofstream&);
+void accountHolder(vector<account> &, int&, string&, char&, double&, int);
+void reviewEntry(int&, string&, char&, double&);
+void writeToFile(vector <account> &, ofstream&);
+void displayUpdateAccount(vector<account> &, int, ofstream&);
+void depositWithdraw(vector<account> &, int, ofstream &);
+void validateInt(int&);
+void validateType(char&);
+void accountNotFound(int);
+void bubbleSort(vector <account>);
+bool isEmptyFile(ifstream&);
+bool isAccount( const vector<account> &, int);
+int findIndex(const vector <account> &, int);
 
 int getChoice();
 
@@ -381,5 +395,202 @@ else if(flag == 1){
         }
 
 }
+void depositWithdraw(vector<account> &v, int flag, ofstream &out)
+{
+   account  acc;
+   int      accNo, index;
+   string   name;
+   char     ch;
+   double   bal, money;
+
+   
+   cout << "\n\n\n";
+   cout << setw(13) << " " << "Enter an Account Number..............: ";
+    cin >> accNo;
+   validateInt(accNo);
+
+   if(isAccount(v, accNo)){
+    index = findIndex(v, accNo);
+   }
+   else{
+    accountNotFound(accNo);
+    return;
+   }
+   name = v[index].getName();
+     ch = v[index].getType();
+    bal = v[index].getBalance();
+
+ 
+    if(flag == 0){
+        system("cls");
+        cout << "\n\n\n";
+        cout << setw(13) << " " << "Current Balance for..................: "
+             << name << endl << endl;
+        cout << setw(30) << "$" << setw(11) << bal << endl << endl;
+        cout << setw(13) << " " << "Enter the Amount to Deposit..........: ";
+         cin >> money;
+         bal += money;
+        cout << setw(13) << " " << "New Balance for......................: "
+             << name << endl << endl;
+        cout << setw(30) << "$" << setw(11) << bal << endl << endl;
+        cout << setw(13) << " ";
+        system("pause");
+    }
+   
+    else if (flag == 1)
+    {  system("cls");
+        cout << "\n\n\n";
+        cout << setw(13) << " " << "Current Balance for..................: "
+             << name << endl << endl;
+        cout << setw(30) << "$" << setw(11) << bal << endl << endl;
+        cout << setw(13) << " " << "Enter the Amount to Withdraw.........: ";
+         cin >> money;
+         bal -= money;
+        cout << setw(13) << " " << "New Balance for......................: "
+             << name << endl << endl;
+        cout << setw(30) << "$" << setw(11) << bal << endl << endl;
+        cout << setw(13) << " ";
+        system("pause");
+    }
+        reviewEntry(accNo, name, ch, bal);
+        acc.setAccountNo(accNo);
+        acc.setName(name);
+        acc.setType(ch);
+        acc.setBalance(bal);
+
+      
+        v[index] = acc;
+        writeToFile(v, out);
+        cout << endl << endl;
+        cout << setw(13) << " " << "Account Updated...." << endl << endl;
+        cout << setw(13) << " ";
+        system("pause");
+}
+
+bool isAccount(const vector <account> &v, int accNo)
+{   ///checks the whole vector of account to see if the account number
+    ///entered exists within the vector
+    for (size_t i = 0; i < v.size(); i++){
+        if(v[i].getAccountNo() == accNo){
+            return true;
+        }
+    }
+            return false;
+}
+
+int findIndex(const vector <account> &v, int accNo)
+{    int index;
+     ///checks the whole vector of account
+     for (size_t i = 0; i < v.size(); i++){
+        ///if the account number is there it sets the index equal to the space
+        if(v[i].getAccountNo() == accNo){
+            index = i;
+        }
+    }
+            return index;
+}
+
+void validateInt(int &n)
+{
+    while (n < 0 || cin.fail())
+    {
+       cout << setw(13) << " "
+            << "ERROR!!" << endl
+            << setw(13) << " "
+            << "Positive Whole Numbers ONLY!! " << endl
+            << setw(13) << " "
+            << "Re-Enter..............................: ";
+       cin.clear();
+       cin.ignore(numeric_limits<int>::max(),'\n');
+       cin >> n;
+    }
+       cin.clear();
+       cin.ignore(numeric_limits<int>::max(),'\n');
+}
+void validateType(char &ch)
+{   
+    string strCh(1, ch);
+     regex integer("^(?:C|c|S|s)?");
+
+     while(!(regex_match(strCh, integer))){
+        cout << setw(13) << " " << "Wrong Input. Please Enter C/s or S/s..: ";
+         cin >> strCh;
+         if(regex_match(strCh, integer)){
+            break;
+         }
+    }
+     ch = strCh[0];
+}
+void accountNotFound(int accNo)
+{
+    cout << setw(13) << " " << "There are no Accounts with Account Number: " << accNo << endl;
+    cout << setw(13) << " " << "Try another Account Number!!" << endl << endl;
+    cout << setw(13) << " ";
+    system("pause");
+}
+
+bool isEmptyFile(ifstream &f)
+{   f.seekg(0, ios::end);
+    size_t pos = f.tellg();
+    if (pos == 0){
+        f.close();
+        return true;
+    }
+    f.close();
+    return false;
+}
+
+void listAllAccounts(const vector<account> &v)
+{
+   system("cls");
+
+   cout << "\n\n\n";
+   cout << setw(50) << "LIST ALL ACCOUNTS" << endl;
+   cout << setw(50) << "_________________" << endl << endl;
+
+   cout << fixed << showpoint << setprecision(2);
+   cout << setw(13) << " " << setw(5) << "Account No" << setw(10)
+        << "Name" << setw(25) << "Type" << setw(7) << right << setw(20)
+        << "Balance" << endl;
+
+ cout << setw(13) << " " << "________________________________________________" <<  "__________________" << endl << endl;
+
+   if(v.size() == 0)
+   {
+       cout << setw(50) << "There are no records to display" << endl;
+       cout << endl;
+       cout << setw(50) << "";
+       system("pause");
+       return;
+   }
+  for (size_t i = 0; i < v.size(); i++)
+  {
+    cout << setw(13) << " "
+         << setw(7) << left << v[i].getAccountNo()
+         << setw(9) << " " << right << v[i].getName()
+         << setw(14)  << v[i].getType()
+         << setw(15) << "$" << setw(2)  << v[i].getBalance() << endl;
+  }
+    cout << endl << endl;
+    cout << setw(15) << " ";
+    system("pause");
+}
+void tokenizer(string str, int &accNo, string &name, char &ch, double &bal)
+{
+    size_t length = str.length();
+    size_t pos1 = str.find_first_of('/');
+    size_t pos2 = str.find_first_of('/',pos1 + 1);
+    size_t pos3 = str.find_first_of('/', pos2 + 1);
+
+    string strNo = str.substr(0, pos1);
+   accNo = stoi(strNo);
+
+    name = str.substr(pos1 + 1, (pos2 - pos1) - 1 );
 
 
+    string strCh = str.substr(pos2 + 1, (pos3 - pos2) - 1);
+    ch = strCh[0];
+
+    string strbal = str.substr(pos3 + 1, (length - pos3) - 1);
+    bal = stod(strbal);
+}
