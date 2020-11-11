@@ -64,7 +64,7 @@ createNewAccount(acc,outFile);
 break;
 
 case 2:
-system("cls");
+system("clear");
 displayUpdateAccount(acc,0,outFile);
 break;
 
@@ -76,7 +76,7 @@ case 4:
 break;
 
 case 5:
-system("cls");
+system("clear");
 displayUpdateAccount(acc,1,outFile);
 break;
 
@@ -104,7 +104,7 @@ return 0;
 void intro()
 {
 ///Clearing the screen just in case...
-    system("cls");
+    system("clear");
 
     ///Application Introduction Picture
     cout << "\n\n\n" << endl;
@@ -167,7 +167,7 @@ void intro()
 
 void menu() {
 
-system("cls");
+system("clear");
 cout << "\n\n\n" << endl;
 
 cout << setw(60) << "Main Menu" << endl;
@@ -212,7 +212,7 @@ double bal;
 f.open("records.txt");
 
 if(!f){
-system("cls");
+system("clear");
 cout << "\n\n";
     cout << setw(50) << "ERROR! Could not open file" << endl;
     cout << setw(50) << "File Might Not Exist Or..." << endl;
@@ -222,12 +222,13 @@ cout << "\n\n";
     exit(0);
     }
 else if(isEmptyFile(f)){
-system("cls");
+system("clear");
     cout << "\n\n\n";
     cout << setw(50) << "There Are No Records on File" << endl;
     cout << setw(50) << "Start loading records to File" << endl;
     cout << setw(50) << " ";
-    system("pause");
+  cin.ignore();
+//  system("pause");
     return ;
 }
 
@@ -328,7 +329,7 @@ out.open("records.txt");
 
 
 if(!out){
-system("cls");
+system("clear");
 cout << "\n\n";
     cout << setw(50) << "ERROR! Could not open file" << endl;
     cout << setw(50) << "File Might Not Exist Or..." << endl;
@@ -346,7 +347,7 @@ for(size_t i = 0; i < v.size(); i++){
 
 void displayUpdateAccount(vector <account> &v, int flag, ofstream &out){
 
-system("cls");
+system("clear");
 
 account acc;
 int accNo, index;
@@ -377,7 +378,8 @@ if (flag == 0){
             reviewEntry(accNo, name, ch, bal);
             cout << endl << endl;
             cout << setw(13) << " ";
-            system("pause");
+          cin.get();  
+	//system("pause");
             return;
         }
 else if(flag == 1){
@@ -422,7 +424,7 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
 
  
     if(flag == 0){
-        system("cls");
+        system("clear");
         cout << "\n\n\n";
         cout << setw(13) << " " << "Current Balance for..................: "
              << name << endl << endl;
@@ -438,7 +440,7 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
     }
    
     else if (flag == 1)
-    {  system("cls");
+    {  system("clear");
         cout << "\n\n\n";
         cout << setw(13) << " " << "Current Balance for..................: "
              << name << endl << endl;
@@ -526,7 +528,10 @@ void accountNotFound(int accNo)
     cout << setw(13) << " " << "There are no Accounts with Account Number: " << accNo << endl;
     cout << setw(13) << " " << "Try another Account Number!!" << endl << endl;
     cout << setw(13) << " ";
-    system("pause");
+	cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();
+	//system("pause");
 }
 
 bool isEmptyFile(ifstream &f)
@@ -542,7 +547,7 @@ bool isEmptyFile(ifstream &f)
 
 void listAllAccounts(const vector<account> &v)
 {
-   system("cls");
+   system("clear");
 
    cout << "\n\n\n";
    cout << setw(50) << "LIST ALL ACCOUNTS" << endl;
@@ -560,7 +565,8 @@ void listAllAccounts(const vector<account> &v)
        cout << setw(50) << "There are no records to display" << endl;
        cout << endl;
        cout << setw(50) << "";
-       system("pause");
+       cin.get();
+	//system("pause");
        return;
    }
   for (size_t i = 0; i < v.size(); i++)
@@ -573,7 +579,10 @@ void listAllAccounts(const vector<account> &v)
   }
     cout << endl << endl;
     cout << setw(15) << " ";
-    system("pause");
+cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+cin.get();
+   // system("pause");
 }
 void tokenizer(string str, int &accNo, string &name, char &ch, double &bal)
 {
