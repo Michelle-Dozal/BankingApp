@@ -5,7 +5,7 @@ This is a sinple Banking Application created on early programming days and then 
 The plan is to have a simple program that the user can interact in. 
 
 ## Feature List
-> * Ability to make an Account
+* Ability to make an Account
 * Ability to view a certain account
 * Ability to view all accounts
 * Ability to withdraw from an account
