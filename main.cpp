@@ -33,7 +33,7 @@ void depositWithdraw(vector<account> &, int, ofstream &);
 void validateInt(int&);
 void validateType(char&);
 void accountNotFound(int);
-void bubbleSort(vector <account>);
+void bubblesort(vector <account>);
 bool isEmptyFile(ifstream&);
 bool isAccount( const vector<account> &, int);
 int findIndex(const vector <account> &, int);
@@ -73,6 +73,7 @@ listAllAccounts(acc);
 break;
 
 case 4:
+bubblesort(acc);
 break;
 
 case 5:
@@ -90,7 +91,7 @@ break;
 
 case 8:
 cout << "\n\n";
-cout << setw(50) << "Thank You for visiting! See you soon!";
+cout << setw(70) << "Thank You for visiting! See you soon!";
 cout << "\n\n";
 break;
 }
@@ -176,7 +177,7 @@ cout << setw(60) << "Main Menu" << endl;
    cout << setw(66) << "1. Create a New Account" << endl;
    cout << setw(64) << "2. Display an Account" << endl;
    cout << setw(63) << "3. List All Accounts" << endl;
-   cout << setw(80) << "4. List All Accounts, Sorted by Names" << endl;
+   cout << setw(81) << "4. List All Accounts, Sorted by Amount" << endl;
    cout << setw(60) << "5. Update Account" << endl;
    cout << setw(60) << "6. Make a Deposit" << endl;
    cout << setw(60) << "7. Withdraw Money" << endl;
@@ -229,7 +230,7 @@ system("clear");
     cout << setw(50) << " ";
     cin.clear();
     cin.ignore(numeric_limits<int>::max(), '\n');
-    cin.get()
+    cin.get();
     return ;
 }
 
@@ -276,7 +277,7 @@ writeToFile(v,out);
 cout << setw(13) << " " << "Account written to file" << endl << endl;
 cin.clear();
 cin.ignore(numeric_limits<int>::max(), '\n');
-cin.get()
+cin.get();
 }
 
 void accountHolder(vector<account> &v, int &accNo, string &name, char &ch, double &bal, int flag){
@@ -448,7 +449,7 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
         cout << setw(13) << " ";
         cin.clear();
 	cin.ignore(numeric_limits<int>::max(), '\n');
-	cin.get()
+	cin.get();
     }
    
     else if (flag == 1)
@@ -466,7 +467,7 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
         cout << setw(13) << " ";
         cin.clear();
 	cin.ignore(numeric_limits<int>::max(), '\n');
-	cin.get()
+	cin.get();
     }
         reviewEntry(accNo, name, ch, bal);
         acc.setAccountNo(accNo);
@@ -482,7 +483,7 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
         cout << setw(13) << " ";
         cin.clear();
 	cin.ignore(numeric_limits<int>::max(), '\n');
-	cin.get()
+	cin.get();
 }
 
 bool isAccount(const vector <account> &v, int accNo)
@@ -583,7 +584,7 @@ void listAllAccounts(const vector<account> &v)
        cout << setw(50) << "";
        cin.clear();
        cin.ignore(numeric_limits<int>::max(), '\n');
-       cin.get()
+       cin.get();
        return;
    }
   for (size_t i = 0; i < v.size(); i++)
@@ -619,4 +620,27 @@ void tokenizer(string str, int &accNo, string &name, char &ch, double &bal)
 
     string strbal = str.substr(pos3 + 1, (length - pos3) - 1);
     bal = stod(strbal);
+}
+
+void bubblesort(vector<account> v)
+{
+	account temp;
+	bool didswap;
+
+do {
+didswap = false;
+for(size_t i = 0; i < v.size() - 1; i++){
+	if(v[i].getBalance() < v[i + 1].getBalance()){
+	temp = v[i];
+	v[i] = v[i+1];
+	v[i+1]=temp;
+	didswap = true;
+}
+
+}
+
+}
+while(didswap);
+listAllAccounts(v);
+
 }
