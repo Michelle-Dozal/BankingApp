@@ -227,8 +227,9 @@ system("clear");
     cout << setw(50) << "There Are No Records on File" << endl;
     cout << setw(50) << "Start loading records to File" << endl;
     cout << setw(50) << " ";
-  cin.ignore();
-//  system("pause");
+    cin.clear();
+    cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get()
     return ;
 }
 
@@ -273,7 +274,9 @@ v.push_back(acc);
 writeToFile(v,out);
 
 cout << setw(13) << " " << "Account written to file" << endl << endl;
-system("pause");
+cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+cin.get()
 }
 
 void accountHolder(vector<account> &v, int &accNo, string &name, char &ch, double &bal, int flag){
@@ -436,7 +439,9 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
              << name << endl << endl;
         cout << setw(30) << "$" << setw(11) << bal << endl << endl;
         cout << setw(13) << " ";
-        system("pause");
+        cin.clear();
+	cin.ignore(numeric_limits<int>::max(), '\n');
+	cin.get()
     }
    
     else if (flag == 1)
@@ -452,7 +457,9 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
              << name << endl << endl;
         cout << setw(30) << "$" << setw(11) << bal << endl << endl;
         cout << setw(13) << " ";
-        system("pause");
+        cin.clear();
+	cin.ignore(numeric_limits<int>::max(), '\n');
+	cin.get()
     }
         reviewEntry(accNo, name, ch, bal);
         acc.setAccountNo(accNo);
@@ -466,7 +473,9 @@ void depositWithdraw(vector<account> &v, int flag, ofstream &out)
         cout << endl << endl;
         cout << setw(13) << " " << "Account Updated...." << endl << endl;
         cout << setw(13) << " ";
-        system("pause");
+        cin.clear();
+	cin.ignore(numeric_limits<int>::max(), '\n');
+	cin.get()
 }
 
 bool isAccount(const vector <account> &v, int accNo)
@@ -528,10 +537,9 @@ void accountNotFound(int accNo)
     cout << setw(13) << " " << "There are no Accounts with Account Number: " << accNo << endl;
     cout << setw(13) << " " << "Try another Account Number!!" << endl << endl;
     cout << setw(13) << " ";
-	cin.clear();
-cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.clear();
+    cin.ignore(numeric_limits<int>::max(), '\n');
     cin.get();
-	//system("pause");
 }
 
 bool isEmptyFile(ifstream &f)
@@ -565,8 +573,9 @@ void listAllAccounts(const vector<account> &v)
        cout << setw(50) << "There are no records to display" << endl;
        cout << endl;
        cout << setw(50) << "";
-       cin.get();
-	//system("pause");
+       cin.clear();
+       cin.ignore(numeric_limits<int>::max(), '\n');
+       cin.get()
        return;
    }
   for (size_t i = 0; i < v.size(); i++)
@@ -579,10 +588,10 @@ void listAllAccounts(const vector<account> &v)
   }
     cout << endl << endl;
     cout << setw(15) << " ";
-cin.clear();
-cin.ignore(numeric_limits<int>::max(), '\n');
-cin.get();
-   // system("pause");
+    cin.clear();
+    cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();
+ 
 }
 void tokenizer(string str, int &accNo, string &name, char &ch, double &bal)
 {
