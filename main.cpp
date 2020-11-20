@@ -282,8 +282,9 @@ cout << "\n\n\n";
 
 if(flag == 0){
 	cout << setw(13) << " " << "Enter Account Number............: ";
-	cin >> accNo;
+	cin >> setw(4) >> accNo;
 	validateInt(accNo);
+
 
 	while(isAccount(v,accNo)){
 
@@ -321,6 +322,10 @@ void reviewEntry(int &accNo, string &name, char &ch, double &bal)
          << ch << endl;
     	cout << setw(13) << " " << "Account Balance.....................: "
          << bal << endl;
+
+	cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();
 }
 
 void writeToFile(vector <account> &v, ofstream &out){
@@ -378,7 +383,9 @@ if (flag == 0){
             reviewEntry(accNo, name, ch, bal);
             cout << endl << endl;
             cout << setw(13) << " ";
-          cin.get();  
+          cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();  
 	//system("pause");
             return;
         }
@@ -499,7 +506,7 @@ void validateInt(int &n)
        cout << setw(13) << " "
             << "ERROR!!" << endl
             << setw(13) << " "
-            << "Positive Whole Numbers ONLY!! " << endl
+            << "4 Positive Whole Numbers Only " << endl
             << setw(13) << " "
             << "Re-Enter..............................: ";
        cin.clear();
@@ -508,6 +515,7 @@ void validateInt(int &n)
     }
        cin.clear();
        cin.ignore(numeric_limits<int>::max(),'\n');
+	cin.get();
 }
 void validateType(char &ch)
 {   
@@ -565,8 +573,9 @@ void listAllAccounts(const vector<account> &v)
        cout << setw(50) << "There are no records to display" << endl;
        cout << endl;
        cout << setw(50) << "";
-       cin.get();
-	//system("pause");
+       cin.clear();
+cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();
        return;
    }
   for (size_t i = 0; i < v.size(); i++)
@@ -582,7 +591,7 @@ void listAllAccounts(const vector<account> &v)
 cin.clear();
 cin.ignore(numeric_limits<int>::max(), '\n');
 cin.get();
-   // system("pause");
+   
 }
 void tokenizer(string str, int &accNo, string &name, char &ch, double &bal)
 {
